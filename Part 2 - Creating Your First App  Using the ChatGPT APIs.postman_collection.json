@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "2fd2c990-052d-4776-913a-d7829267f4be",
+		"name": "Part 2 - Creating Your First App  Using the ChatGPT APIs",
+		"description": "Course: Create ChatGPT AI Agents in 4 Hours\n\nThis is a list of the requests to the OpenAI APIs for Part 2 of the course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41710834"
+	},
+	"item": [
+		{
+			"name": "1. Request Flight, no System Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"I'd like to book a flight from Dallas to Miami\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Request Flight, with System Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"You are an AI-enabled website that allows users to book travel and accommodations using natural language. Your role in this conversation is to collect the following types of information from the user:the origin, destination, legal name, travel dates, and preferred seating\"\n                }\n            ]\n        },\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"I'd like to book a flight from Dallas to Miami\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Request Flight, Give Destination only",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"You are an AI-enabled website that allows users to book travel and accommodations using natural language. Your role in this conversation is to collect the following types of information from the user:the origin, destination, legal name, travel dates, and preferred seating\"\n                }\n            ]\n        },\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"I'd like to book a flight to Miami\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Request Flight, Give Origin only",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"You are an AI-enabled website that allows users to book travel and accommodations using natural language. Your role in this conversation is to collect the following types of information from the user:the origin, destination, legal name, travel dates, and preferred seating\"\n                }\n            ]\n        },\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"I'm departing from Dallas on Tuesday\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Customer Support, with System Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n        {\n            \"role\": \"system\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"You are a customer support agent for an e-commerce website selling clothing, shoes, and fashion items. Your role in this conversation is to collect the first name, last name, and order number of the user. You will greet the customer in a friendly manner. You will inform them that the system will provide an answer to their question as soon as possible.\"\n                }\n            ]\n        },\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"I'm checking on the status of my order\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{openai_key}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

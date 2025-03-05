@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "8f74e4e2-ab27-43b1-aa94-142d5a1f468e",
+		"name": "Part 7 - Security",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41710834"
+	},
+	"item": [
+		{
+			"name": "1. Smart PII Redaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n                {\n            \"role\": \"system\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"You are a system responsible for monitoring text in order to redact any personally identifiable information (PII) that would violate PCI DSS or HIPAA compliance. Replace any and all PII in the text (such as names, locations, and ID numbers, etc) with the type of data being redacted, and enclosed in square brackets [].   \"\n                }\n            ]\n        },\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"Hi, my name is Barbara, and I was born on Dec-4, 1984. I need help with my credit card. The number is 4000-1111-2222-3333. For verification purposes, my SSN is 410-02-0908\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{openai_key}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

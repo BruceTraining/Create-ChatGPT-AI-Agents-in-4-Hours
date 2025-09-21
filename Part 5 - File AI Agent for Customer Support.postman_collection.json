@@ -7,24 +7,29 @@
 	},
 	"item": [
 		{
-			"name": "1. Create Customer Support Assistant",
+			"name": "1. CS with File Data, with Store Set TRUE",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{openai_key}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"instructions\": \"You are a customer support agent for an e-commerce website selling clothing, shoes, and fashion items. Your role in this conversation is to collect the first name, last name, and orderID number of the user. You will greet the customer in a friendly manner. You will inform them that the system will provide an answer to their question as soon as possible. Take the first name, last name, and orderID provided by the customer and look up the data in the attached CSV file in this conversation in order to give them the status of their order\",\n    \"name\": \"Customer Support Backed by CSV File Mar 5 demo \",\n    \"model\": \"gpt-4o-2024-05-13\",\n    \"temperature\": 1.0,\n    \"top_p\": 0.5,\n    \"tools\": [{\"type\": \"code_interpreter\"}],\n    \"tool_resources\": {\n      \"code_interpreter\": {\n        \"file_ids\": [\"file-Hegyvwd6xDQqfgyEtwERzE\"]\n      }\n    }\n}",
+					"raw": "{\n  \"model\": \"gpt-5-mini\",\n  \"input\": [\n    {\n      \"role\": \"developer\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"You are a customer support agent for an e-commerce website selling clothing, shoes, and fashion items. Your role in this conversation is to collect the first name, last name, and order number of the user. You will greet the customer in a friendly manner. You use the information in the attached file to lookup the status of the order with the information provided to you by the user.\"\n        }\n      ]\n    },\n    {\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"I want to check on the status of my order.\"\n        },\n        {\n            \"type\": \"input_file\",\n            \"file_id\": \"file-Ey7MiExfThHWyyEWGRZW14\"\n        }\n      ]\n    }\n  ],\n  \"text\": {\n    \"format\": {\n      \"type\": \"text\"\n    },\n    \"verbosity\": \"low\"\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\",\n    \"summary\": null\n  },\n  \"tools\": [],\n  \"store\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -32,7 +37,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.openai.com/v1/assistants",
+					"raw": "https://api.openai.com/v1/responses",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -41,31 +46,36 @@
 					],
 					"path": [
 						"v1",
-						"assistants"
+						"responses"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "2. Create Thread with User Message",
+			"name": "2. CS with File Data, with Full Name",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{openai_key}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"messages\": [\n      {\n        \"role\": \"user\",\n        \"content\": \"I'm checking on the status of my order\"\n      }\n    ]\n}",
+					"raw": "{\n  \"model\": \"gpt-5-mini\",\n  \"input\": [\n    {\n      \"role\": \"developer\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"You are a customer support agent for an e-commerce website selling clothing, shoes, and fashion items. Your role in this conversation is to collect the first name, last name, and order number of the user. You will greet the customer in a friendly manner. You will inform them that the system will provide an answer to their question as soon as possible.\"\n        }\n      ]\n    },\n    {\n        \"role\": \"user\",\n        \"content\": [\n            {\n            \"type\": \"input_text\",\n            \"text\": \"I'm Daniel Wheeler\"\n            },\n            {\n                \"type\": \"input_file\",\n                \"file_id\": \"file-Ey7MiExfThHWyyEWGRZW14\"\n            }\n        ]\n        }\n  ],\n  \"previous_response_id\": \"{{previous_response_id}}\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"text\"\n    },\n    \"verbosity\": \"low\"\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\",\n    \"summary\": null\n  },\n  \"tools\": [],\n  \"store\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -73,7 +83,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.openai.com/v1/threads",
+					"raw": "https://api.openai.com/v1/responses",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -82,31 +92,36 @@
 					],
 					"path": [
 						"v1",
-						"threads"
+						"responses"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "3. Execute a Run with the Assistant and Thread of Messages",
+			"name": "3. CS with File Data, with Order Number",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{openai_key}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"assistant_id\": \"{{assistant_id}}\",\n    \"instructions\": \"\"\n}",
+					"raw": "{\n  \"model\": \"gpt-5-mini\",\n  \"input\": [\n    {\n      \"role\": \"developer\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"You are a customer support agent for an e-commerce website selling clothing, shoes, and fashion items. Your role in this conversation is to collect the first name, last name, and order number of the user. You will greet the customer in a friendly manner. You will inform them that the system will provide an answer to their question as soon as possible.\"\n        }\n      ]\n    },\n    {\n        \"role\": \"user\",\n        \"content\": [\n            {\n            \"type\": \"input_text\",\n            \"text\": \"OK, thanks my order number is 228986\"\n            },\n            {\n                \"type\": \"input_file\",\n                \"file_id\": \"file-Ey7MiExfThHWyyEWGRZW14\"\n            }\n        ]\n        }\n  ],\n  \"previous_response_id\": \"{{previous_response_id}}\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"text\"\n    },\n    \"verbosity\": \"low\"\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\",\n    \"summary\": null\n  },\n  \"tools\": [],\n  \"store\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,7 +129,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/runs",
+					"raw": "https://api.openai.com/v1/responses",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -123,319 +138,7 @@
 					],
 					"path": [
 						"v1",
-						"threads",
-						"{{thread_id}}",
-						"runs"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "4. Get a List of Messages on the Thread",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/messages",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"messages"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "5. Add New User Message to Thread, Give Name Only",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"role\": \"user\",\n    \"content\": \"Ok, thanks. My name is Daniel Wheeler\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/messages",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"messages"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "6. Execute Run #2 with Assistant and Updated Thread of Messages",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"assistant_id\": \"{{assistant_id}}\",\n    \"instructions\": \"\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/runs",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"runs"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "7. Get a List of Messages on the Thread",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/messages",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"messages"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "8. Add New User Message to Thread, Give Order Number",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"role\": \"user\",\n    \"content\": \"OK, thanks my order number is 228986\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/messages",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"messages"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "9. Execute Run #3 with Assistant and Updated Thread of Messages",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"assistant_id\": \"{{assistant_id}}\",\n    \"instructions\": \"\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/runs",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"runs"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "10. Get a List of Messages on the Thread",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "OpenAI-Beta",
-						"value": "assistants=v2",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api.openai.com/v1/threads/{{thread_id}}/messages",
-					"protocol": "https",
-					"host": [
-						"api",
-						"openai",
-						"com"
-					],
-					"path": [
-						"v1",
-						"threads",
-						"{{thread_id}}",
-						"messages"
+						"responses"
 					]
 				}
 			},

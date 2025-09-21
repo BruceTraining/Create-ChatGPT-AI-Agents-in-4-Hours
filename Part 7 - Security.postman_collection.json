@@ -9,6 +9,16 @@
 		{
 			"name": "1. Smart PII Redaction",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{openai_key}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -19,7 +29,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n                {\n            \"role\": \"system\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"You are a system responsible for monitoring text in order to redact any personally identifiable information (PII) that would violate PCI DSS or HIPAA compliance. Replace any and all PII in the text (such as names, locations, and ID numbers, etc) with the type of data being redacted, and enclosed in square brackets [].   \"\n                }\n            ]\n        },\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\n                    \"type\": \"text\",\n                    \"text\": \"Hi, my name is Barbara, and I was born on Dec-4, 1984. I need help with my credit card. The number is 4000-1111-2222-3333. For verification purposes, my SSN is 410-02-0908\"\n                }\n            ]\n        }\n    ],\n    \"response_format\": {\n        \"type\": \"text\"\n    },\n    \"temperature\": 1,\n    \"max_completion_tokens\": 411,\n    \"top_p\": 1,\n    \"frequency_penalty\": 0,\n    \"presence_penalty\": 0\n}",
+					"raw": "{\n  \"model\": \"gpt-5-mini-2025-08-07\",\n  \"input\": [\n    {\n      \"role\": \"developer\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"You are a system responsible for monitoring text in order to redact any personally identifiable information (PII) that would violate PCI DSS or HIPAA compliance. Replace any and all PII in the text (such as names, locations, and ID numbers, etc) with the type of data being redacted, and enclosed in square brackets []\"\n        }\n      ]\n    },\n    {\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"Hi, my name is Barbara, and I was born on Dec-4, 1984. I need help with my credit card. The number is 4000-1111-2222-3333. For verification purposes, my SSN is 410-02-0908\"\n        }\n      ]\n    }\n  ],\n  \"text\": {\n    \"format\": {\n      \"type\": \"text\"\n    },\n    \"verbosity\": \"medium\"\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\",\n    \"summary\": null\n  },\n  \"tools\": [],\n  \"store\": false\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -27,7 +37,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.openai.com/v1/chat/completions",
+					"raw": "https://api.openai.com/v1/responses",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -36,8 +46,7 @@
 					],
 					"path": [
 						"v1",
-						"chat",
-						"completions"
+						"responses"
 					]
 				}
 			},
